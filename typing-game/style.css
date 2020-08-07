@@ -35,6 +35,28 @@ select {
   background-color: #a7c5e3;
 }
 
+.start-container {
+  position: absolute;
+  background-color: inherit;
+  /* border: 2px solid #fff;
+  border-radius: 5px; */
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  width: 50%;
+  z-index: 2;
+}
+.start-btn {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  /* margin: auto; */
+  height: 100px;
+  width: 200px;
+}
+
 select:focus,
 button:focus {
   outline: 0;

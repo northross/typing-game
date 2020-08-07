@@ -7,6 +7,8 @@ const settingsBtn = document.getElementById('settings-btn');
 const settings = document.getElementById('settings');
 const settingsForm = document.getElementById('settings-form');
 const difficultySelect = document.getElementById('difficulty');
+const startCont = document.getElementById('start-container');
+const startBtn = document.getElementById('start-btn');
 
 // list of words for the game
 const words = [
@@ -32,20 +34,6 @@ const words = [
   'loving',
 ];
 
-fetch('https://wordsapiv1.p.rapidapi.com/words/%7Bword%7D', {
-  method: 'GET',
-  headers: {
-    'x-rapidapi-host': 'wordsapiv1.p.rapidapi.com',
-    'x-rapidapi-key': 'ff61de8c3fmshdbbdcfd2003501ep1d77b7jsn0bc9bc4a1b9b',
-  },
-})
-  .then((response) => {
-    console.log(response);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
 // init word
 let randomWord;
 
@@ -53,7 +41,14 @@ let randomWord;
 let score = 0;
 
 // init time
-let time = 10;
+let time = 15;
+
+function startGame() {
+  startCont.style.opacity = 0;
+  startCont.style.zIndex = -1;
+  score = 0;
+  time = 15;
+}
 
 // set difficulty to value in loval storage or medium
 let difficulty =
@@ -113,6 +108,10 @@ function gameOver() {
 addWordToDOM();
 
 // event listeners
+
+//  start game
+startBtn.addEventListener('click', startGame);
+
 // typing
 text.addEventListener('input', (e) => {
   const insertedText = e.target.value;
