@@ -34,6 +34,38 @@ select {
   border-radius: 0;
   background-color: #a7c5e3;
 }
+.high-score {
+  color: #fff;
+  font-size: 24px;
+  justify-content: center;
+  align-items: center;
+  display: block;
+  padding: 0 auto 20px auto;
+  margin: 0 auto 20px auto;
+}
+
+.start-container {
+  position: absolute;
+  background-color: inherit;
+  /* border: 2px solid #fff;
+  border-radius: 5px; */
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 75%;
+  width: 100%;
+  z-index: 2;
+}
+.start-btn {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  /* margin: auto; */
+  height: 100px;
+  width: 200px;
+}
 
 select:focus,
 button:focus {

@@ -7,6 +7,9 @@ const settingsBtn = document.getElementById('settings-btn');
 const settings = document.getElementById('settings');
 const settingsForm = document.getElementById('settings-form');
 const difficultySelect = document.getElementById('difficulty');
+const startCont = document.getElementById('start-container');
+const startBtn = document.getElementById('start-btn');
+const highScoreEl = document.getElementById('high-score');
 
 // list of words for the game
 const words = [
@@ -32,20 +35,6 @@ const words = [
   'loving',
 ];
 
-fetch('https://wordsapiv1.p.rapidapi.com/words/%7Bword%7D', {
-  method: 'GET',
-  headers: {
-    'x-rapidapi-host': 'wordsapiv1.p.rapidapi.com',
-    'x-rapidapi-key': 'ff61de8c3fmshdbbdcfd2003501ep1d77b7jsn0bc9bc4a1b9b',
-  },
-})
-  .then((response) => {
-    console.log(response);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
 // init word
 let randomWord;
 
@@ -54,6 +43,18 @@ let score = 0;
 
 // init time
 let time = 10;
+
+let highest = localStorage.getItem('highScore');
+highScoreEl.innerHTML = `
+  <h3>Highest Score: ${highest}</h3>
+`;
+
+function startGame() {
+  startCont.style.opacity = 0;
+  startCont.style.zIndex = -1;
+  score = 0;
+  time = 10;
+}
 
 // set difficulty to value in loval storage or medium
 let difficulty =
@@ -103,16 +104,32 @@ function updateTime() {
 
 // game over show end screen
 function gameOver() {
+  console.log(score);
   endGameEl.innerHTML = `
     <h1>Time ran out<h1>
     <p>You final score is ${score}</p>
     <button onclick="location.reload()">Reload</button>
   `;
+
   endGameEl.style.display = 'flex';
+
+  let highScore = localStorage.getItem('highScore');
+  if (highScore === null) {
+    localStorage.setItem('highScore', score);
+  } else if (highScore <= score) {
+    localStorage.setItem('highScore', score);
+  } else {
+    localStorage.getItem('highScore');
+  }
 }
+
 addWordToDOM();
 
 // event listeners
+
+//  start game
+startBtn.addEventListener('click', startGame);
+
 // typing
 text.addEventListener('input', (e) => {
   const insertedText = e.target.value;
