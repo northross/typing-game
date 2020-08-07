@@ -9,6 +9,7 @@ const settingsForm = document.getElementById('settings-form');
 const difficultySelect = document.getElementById('difficulty');
 const startCont = document.getElementById('start-container');
 const startBtn = document.getElementById('start-btn');
+const highScoreEl = document.getElementById('high-score');
 
 // list of words for the game
 const words = [
@@ -41,13 +42,18 @@ let randomWord;
 let score = 0;
 
 // init time
-let time = 15;
+let time = 10;
+
+let highest = localStorage.getItem('highScore');
+highScoreEl.innerHTML = `
+  <h3>Highest Score: ${highest}</h3>
+`;
 
 function startGame() {
   startCont.style.opacity = 0;
   startCont.style.zIndex = -1;
   score = 0;
-  time = 15;
+  time = 10;
 }
 
 // set difficulty to value in loval storage or medium
@@ -98,13 +104,25 @@ function updateTime() {
 
 // game over show end screen
 function gameOver() {
+  console.log(score);
   endGameEl.innerHTML = `
     <h1>Time ran out<h1>
     <p>You final score is ${score}</p>
     <button onclick="location.reload()">Reload</button>
   `;
+
   endGameEl.style.display = 'flex';
+
+  let highScore = localStorage.getItem('highScore');
+  if (highScore === null) {
+    localStorage.setItem('highScore', score);
+  } else if (highScore <= score) {
+    localStorage.setItem('highScore', score);
+  } else {
+    localStorage.getItem('highScore');
+  }
 }
+
 addWordToDOM();
 
 // event listeners
